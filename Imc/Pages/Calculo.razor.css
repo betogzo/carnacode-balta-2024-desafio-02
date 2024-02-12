@@ -58,10 +58,20 @@ input {
     margin-top: 1.2rem;
 }
 
-    input::placeholder {
-        color: #BDBDBD;
-        font-size: 1.6rem;
-    }
+::deep .input {
+    height: 5rem;
+    border-radius: .5rem;
+    background-color: #F6F6F6;
+    border: .2rem solid #E8E8E8;
+    padding-left: 2rem;
+    font-size: 1.6rem;
+    margin-top: 1.2rem;
+}
+
+::deep input::placeholder {
+    color: #BDBDBD;
+    font-size: 1.6rem;
+}
 
 .primary-button {
     height: 5rem;

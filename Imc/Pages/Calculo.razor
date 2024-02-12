@@ -1,29 +1,50 @@
 ﻿@page "/calculo"
+@inject CalculadoraImc _calculadoraImc;
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/general.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:100,200,500,600">
-    <title>Cálculo</title>
-</head>
+@* <body>
+<div class="container">
+    <h1 class="title">Cálculo de IMC</h1>
+    <div>
+        <input type="number" placeholder="Altura">
+        <input type="number" placeholder="Peso">
+        <input type="text" placeholder="Sexo (M ou F)">
+    </div>
+    <div class="cbox">
+        <input type="checkbox" name="idade" />
+        <label for="idade">Tenho 65 anos ou mais</label>
+    </div>
+    <button class="primary-button">Calcular meu IMC</button>
+    <button class="secondary-button">Entenda o cálculo</button>
+</div>
+</body> *@
+
 <body>
     <div class="container">
         <h1 class="title">Cálculo de IMC</h1>
-        <div>
-            <input type="text" placeholder="Altura">
-            <input type="text" placeholder="Peso">
-            <input type="text" placeholder="Sexo">
-        </div>
-        <div class="cbox">
-            <input type="checkbox" name="idade" />
-            <label for="idade">Tenho 65 anos ou mais</label>
-        </div>
-        <button class="primary-button">Calcular meu IMC</button>
-        <button class="secondary-button">Entenda o cálculo</button>
+        <EditForm Model="@Model" OnValidSubmit="OnSubmitValidAsync">
+            @*activate model/entity validations on the form*@
+            <DataAnnotationsValidator />
+            @*show validation errors on the page*@
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <InputNumber @bind-Value="Model.Altura" class="form-control input" placeholder="Altura" />
+                <InputNumber @bind-Value="Model.Peso" class="form-control input" placeholder="Peso" />
+                <InputText @bind-Value="Model.Sexo" class="form-control input" placeholder="Sexo (M ou F)" />
+            </div>
+            <button type="submit" class="primary-button">Calcular meu IMC</button>
+            <button class="secondary-button">Entenda o cálculo</button>
+        </EditForm>
     </div>
 </body>
 
 @code {
+    CalcInput Model = new();
+    ImcResult ImcResult = new();
 
+    protected async Task OnSubmitValidAsync()
+    {
+        var resultado = _calculadoraImc.Calcula(Model.Altura ?? 0f, Model.Peso ?? 0f);
+        ImcResult = _calculadoraImc.GeraResultadoInfo(resultado);
+    }
 }
