@@ -122,6 +122,12 @@ input {
         max-width: 100%;
     }
 
+.title {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
+}
+
 @media (min-width:801px) {
     .container {
         zoom: 75%
