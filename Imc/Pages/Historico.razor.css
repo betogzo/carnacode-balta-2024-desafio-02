@@ -128,6 +128,13 @@ input {
     margin-bottom: .5rem;
 }
 
+.no-history-info {
+    font-size: 1rem !important;
+    display: table !important;
+    margin: 0 auto !important;
+    margin-top: 2rem !important;
+}
+
 @media (min-width:801px) {
     .container {
         zoom: 75%

@@ -1,4 +1,6 @@
 ﻿@page "/historico"
+@inject LocalStorageService _localStorageService
+@inject TimeService _timeService
 
 <div class="container">
     <div class="icon">
@@ -7,30 +9,35 @@
     <h1 class="title">Histórico</h1>
     <input class="br-25rem" type="text" placeholder="Pesquisar..."> 
     <ul class="notifications">
-        <li class="notification">
-            <div class="icon2"></div>
-            <article class="content">
-                <header class="title-time">
-                    <h2 class="title">Peso ideal ✅</h2>
-                    <p class="time">8m atrás</p>
-                </header>
-                <p class="info">Parabéns, você está no seu peso ideal, continue mantendo este estilo!</p>
-            </article>
-        </li>
-          
-        <li class="notification">
-            <div class="icon2"></div>
-            <article class="content">
-                <header class="title-time">
-                    <h2 class="title">Sobrepeso ⛔️</h2>
-                    <p class="time">23/12/2023</p>
-                </header>
-                <p class="info">Estamos quase lá! Faça alguns ajustes para ficar no peso ideal!</p>
-            </article>
-        </li>
+       @if (results.Count > 0)
+       {
+           foreach (var result in results)
+           {
+               <li class="notification">
+                   <div class="icon2"></div>
+                   <article class="content">
+                       <header class="title-time">
+                           <h2 class="title">@result.ImcResultTitle</h2>
+                           <p class="time">@_timeService.GetPassedTime(result.CalculatedAt)</p>
+                       </header>
+                       <p class="info">@result.ImcResultInfo</p>
+                   </article>
+               </li>
+           }
+       }
+       else
+       {
+           <span class="no-history-info">Nenhum cálculo feito recentemente.</span>
+       }
     </ul>
 </div>
 
 @code {
+    List<ImcResult> results = [];
 
+    protected override async Task OnInitializedAsync()
+    {
+        results = await _localStorageService.GetAllResultsFromLocalStorage();
+        results.Reverse();
+    }
 }
