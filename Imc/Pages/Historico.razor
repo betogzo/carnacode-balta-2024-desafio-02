@@ -6,7 +6,7 @@
     <div class="icon">
         <img style="display: block; margin: auto;" src="/assets/icon-no-bg.png">
     </div>
-    <h1 class="title">Histórico</h1>
+    <h1>Histórico</h1>
     <input class="br-25rem" @oninput="@SearchInputChanged" type="text" placeholder="Pesquisar...">
     <ul class="notifications">
        @if (_results.Any() && String.IsNullOrWhiteSpace(_searchString))
