@@ -8,19 +8,21 @@
         <h1 class="title mt-1">Cálculo de IMC</h1>
         <EditForm Model="@Model" OnValidSubmit="OnSubmitValidAsync">
             <DataAnnotationsValidator />
-            <ValidationSummary />
 
             <div class="mb-3">
                 <InputNumber @bind-Value="Model.Altura" class="form-control input" placeholder="Altura" />
                 <InputNumber @bind-Value="Model.Peso" class="form-control input" placeholder="Peso" />
                 <InputText @bind-Value="Model.Sexo" class="form-control input" placeholder="Sexo (M ou F)" />
             </div>
+            <ValidationSummary />
             <div class="cbox">
                 <input type="checkbox" name="idade" />
                 <label for="idade">Tenho 65 anos ou mais</label>
             </div>
             <button style="width: 100%" type="submit" class="primary-button">Calcular meu IMC</button>
-            <button style="width: 100%" class="secondary-button">Entenda o cálculo</button>
+            <a target="blank" href="https://vidasaudavel.einstein.br/calcular-o-seu-imc/">
+                <button type="button" style="width: 100%" class="secondary-button">Entenda o cálculo</button>
+            </a>
             
         </EditForm>
     </div>
